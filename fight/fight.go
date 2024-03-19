@@ -2,6 +2,7 @@ package fight
 
 import (
 	"Task_4/entities"
+	"errors"
 	"fmt"
 	"github.com/sirupsen/logrus"
 )
@@ -11,7 +12,7 @@ type Fight struct {
 	Dragon entities.Dragon
 }
 
-func (f *Fight) DragonSays() {
+func (f Fight) DragonSays() {
 	if f.Dragon.NumOfHeads <= 0 {
 		fmt.Printf("%s: YOU CUT OFF ALL OF MY HEADS?!?!?!??!\n", f.Dragon.Name)
 	}
@@ -20,7 +21,7 @@ func (f *Fight) DragonSays() {
 	}
 }
 
-func (f *Fight) HeroSays() {
+func (f Fight) HeroSays() {
 	if f.Dragon.NumOfHeads <= 0 {
 		fmt.Printf("%s: You got what you deserve\n", f.Hero.Name)
 	}
@@ -38,11 +39,11 @@ func (f *Fight) StartFight() error {
 		}
 		if f.Dragon.NumOfHeads == 7 {
 			logrus.Errorf("%s has a phobia of the number seven!! He got scared and flew away", f.Dragon.Name)
-			return fmt.Errorf("dragon has a phobia of the number seven")
+			return errors.New("dragon has a phobia of the number seven")
 		}
 		if f.Hero.Name == "найжвавіший випивший кінь" {
 			logrus.Errorf("%s got drunk on vodka and didn't come to the battle", f.Hero.Name)
-			return fmt.Errorf("hero got drunk on vodka")
+			return errors.New("hero got drunk on vodka")
 		}
 
 		damage := f.Hero.Damage()
